@@ -1,7 +1,5 @@
-// LIBRARY IMPORT
-const jwt = require('jsonwebtoken');
-
-const authenticateToken = (req, res, next) => {
+exports.authenticateToken = (req, res, next) => {
+    const jwt = require('jsonwebtoken');
     const token = req.cookies.access_token;
 
     if (!token) {
@@ -18,6 +16,4 @@ const authenticateToken = (req, res, next) => {
     } catch (error) {
         return res.status(401).json({message: "Unauthorized"});
     }
-}
-
-module.exports = { authenticateToken };
+};

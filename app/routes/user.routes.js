@@ -2,7 +2,7 @@
 const users = require("../controllers/user.controller");
 
 // MIDDLEWARE
-const { authenticateToken } = require("../middleware/middleware");
+const middleware = require("../middleware/middleware");
 
 // ROUTER
 const router =  require("express").Router();
@@ -17,7 +17,7 @@ const router =  require("express").Router();
 
 router.post("/", users.create);
 router.post("/auth", users.auth);
-router.get("/", users.findAll);
+router.get("/", middleware.authenticateToken, users.findAll);
 router.get("/:id", users.findOne);
 router.put("/:id", users.update);
 router.delete("/",  users.deleteAll);
