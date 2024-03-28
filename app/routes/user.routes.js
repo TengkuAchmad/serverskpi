@@ -17,7 +17,7 @@ const router =  require("express").Router();
 
 router.post("/", users.create);
 router.post("/auth", users.auth);
-router.get("/", middleware.authenticateToken, users.findAll);
+router.get("/", users.findAll);
 router.get("/:id", users.findOne);
 router.put("/:id", users.update);
 router.delete("/",  users.deleteAll);
