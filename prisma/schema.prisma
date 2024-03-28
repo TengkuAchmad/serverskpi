@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User_Account {
+  UUID_UA     String   @id
+  Name_UA     String
+  Email_UA    String   @unique
+  Password_UA String?
+  OTP_UA      Int?     @unique @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Data_Keyword {
+  UUID_DK         String             @id
+  Payload_DK      String             @unique
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  DataSyncronized Data_Syncronized[]
+}
+
+model Data_SKPI {
+  UUID_DS         String             @id
+  Data_DS_IND     String             @unique
+  Data_DS_EN      String             @unique
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  DataSyncronized Data_Syncronized[]
+}
+
+model Data_Syncronized {
+  UUID_DSY    String       @id
+  DataKeyword Data_Keyword @relation(fields: [UUID_DK], references: [UUID_DK])
+  UUID_DK     String
+  DataSKPI    Data_SKPI    @relation(fields: [UUID_DS], references: [UUID_DS])
+  UUID_DS     String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}

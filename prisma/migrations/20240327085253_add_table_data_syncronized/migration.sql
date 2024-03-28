@@ -1,0 +1,55 @@
+-- CreateTable
+CREATE TABLE `User_Account` (
+    `UUID_UA` VARCHAR(191) NOT NULL,
+    `Name_UA` VARCHAR(191) NOT NULL,
+    `Email_UA` VARCHAR(191) NOT NULL,
+    `Password_UA` VARCHAR(191) NULL,
+    `OTP_UA` INTEGER NULL DEFAULT 0,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `User_Account_Email_UA_key`(`Email_UA`),
+    UNIQUE INDEX `User_Account_OTP_UA_key`(`OTP_UA`),
+    PRIMARY KEY (`UUID_UA`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Data_Keyword` (
+    `UUID_DK` VARCHAR(191) NOT NULL,
+    `Payload_DK` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `Data_Keyword_Payload_DK_key`(`Payload_DK`),
+    PRIMARY KEY (`UUID_DK`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Data_SKPI` (
+    `UUID_DS` VARCHAR(191) NOT NULL,
+    `Data_DS_IND` VARCHAR(191) NOT NULL,
+    `Data_DS_EN` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `Data_SKPI_Data_DS_IND_key`(`Data_DS_IND`),
+    UNIQUE INDEX `Data_SKPI_Data_DS_EN_key`(`Data_DS_EN`),
+    PRIMARY KEY (`UUID_DS`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Data_Syncronized` (
+    `UUID_DSY` VARCHAR(191) NOT NULL,
+    `UUID_DK` VARCHAR(191) NOT NULL,
+    `UUID_DS` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`UUID_DSY`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Data_Syncronized` ADD CONSTRAINT `Data_Syncronized_UUID_DK_fkey` FOREIGN KEY (`UUID_DK`) REFERENCES `Data_Keyword`(`UUID_DK`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Data_Syncronized` ADD CONSTRAINT `Data_Syncronized_UUID_DS_fkey` FOREIGN KEY (`UUID_DS`) REFERENCES `Data_SKPI`(`UUID_DS`) ON DELETE RESTRICT ON UPDATE CASCADE;
