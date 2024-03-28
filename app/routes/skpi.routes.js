@@ -7,18 +7,11 @@ const { authenticateToken } = require("../middleware/middleware");
 // ROUTER
 const router =  require("express").Router();
 
-// router.get("/", authenticateToken, skpi.findAll);
-// router.get("/:id", authenticateToken, skpi.findOne);
-// router.post("/", authenticateToken,  skpi.create);
-// router.put("/:id", authenticateToken, skpi.update);
-// router.delete("/", authenticateToken, skpi.deleteAll);
-// router.delete("/:id", authenticateToken, skpi.deleteOne);
-
-router.get("/", skpi.findAll);
-router.get("/:id", skpi.findOne);
-router.post("/",  skpi.create);
-router.put("/:id", skpi.update);
-router.delete("/", skpi.deleteAll);
-router.delete("/:id", skpi.deleteOne);
+router.get("/", middleware.authenticateToken, skpi.findAll);
+router.get("/:id", middleware.authenticateToken, skpi.findOne);
+router.post("/",  middleware.authenticateToken, skpi.create);
+router.put("/:id", middleware.authenticateToken, skpi.update);
+router.delete("/", middleware.authenticateToken, skpi.deleteAll);
+router.delete("/:id", middleware.authenticateToken, skpi.deleteOne);
 
 module.exports = router

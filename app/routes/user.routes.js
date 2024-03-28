@@ -7,20 +7,12 @@ const middleware = require("../middleware/middleware");
 // ROUTER
 const router =  require("express").Router();
 
-// router.post("/", users.create);
-// router.post("/auth", users.auth);
-// router.get("/", authenticateToken, users.findAll);
-// router.get("/:id", authenticateToken, users.findOne);
-// router.put("/:id", authenticateToken, users.update);
-// router.delete("/", authenticateToken,  users.deleteAll);
-// router.delete("/:id", authenticateToken, users.deleteOne);
-
 router.post("/", users.create);
 router.post("/auth", users.auth);
 router.get("/", middleware.authenticateToken, users.findAll);
-router.get("/:id", users.findOne);
-router.put("/:id", users.update);
-router.delete("/",  users.deleteAll);
-router.delete("/:id", users.deleteOne);
+router.get("/:id", middleware.authenticateToken, users.findOne);
+router.put("/:id", middleware.authenticateToken, users.update);
+router.delete("/",  middleware.authenticateToken, users.deleteAll);
+router.delete("/:id", middleware.authenticateToken, users.deleteOne);
 
 module.exports = router;
