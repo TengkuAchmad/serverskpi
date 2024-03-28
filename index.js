@@ -3,6 +3,7 @@ const express           = require("express")
 const { PrismaClient }  = require("@prisma/client")
 const bodyParser        = require("body-parser")
 const cors              = require("cors")
+const compression       = require("compression")
 const cookieParser      = require("cookie-parser")
 
 // ROUTES IMPORT
@@ -24,7 +25,9 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(cookieParser)
+app.use(cookieParser())
+
+app.use(compression())
 
 // ROUTING
 app.use("/test", apitest)
