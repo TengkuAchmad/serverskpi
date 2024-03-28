@@ -9,7 +9,7 @@ const cors              = require("cors")
 const apitest           = require("./app/routes/apitest.routes")
 // const keyword           = require("./app/routes/keyword.routes")
 // const skpi              = require("./app/routes/skpi.routes")
-// const users             = require("./app/routes/user.routes")
+const users             = require("./app/routes/user.routes")
 
 // APP CONFIGURATION
 const app               = express()
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use("/test", apitest)
 // app.use("/keyword", keyword)
 // app.use("/skpi", skpi)
-// app.use("/users", users)
+app.use("/users", users)
 
 // APP PORT
 app.listen(5000, () => {
